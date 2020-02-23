@@ -4,22 +4,24 @@ import org.nomadic121.chat.models.Message;
 import org.nomadic121.chat.repositories.MessagesRepository;
 import org.nomadic121.chat.transfer.MessageDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class MessageServiceImpl implements MessageService {
 
     @Autowired
-    private MessagesRepository messagesRepository;
+    private MessagesRepository messagesRepo;
 
     @Override
     public void add(final String message) {
-        messagesRepository.add(new Message(message));
+        messagesRepo.add(new Message(message));
     }
 
     @Override
     public List<MessageDto> getAllMessages() {
-        return null;
+        return MessageDto.from(messagesRepo.getAllMessages());
     }
 
 }

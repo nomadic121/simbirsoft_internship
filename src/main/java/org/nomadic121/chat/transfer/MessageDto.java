@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class MessageDto {
 
-    private String message;
+    private String text;
 
     public static MessageDto from(final Message message) {
         return new MessageDto(message.getText());

@@ -1,6 +1,17 @@
 <!DOCTYPE HTML>
 <html>
 <body>
-<div>Hello, {{name}}!</div>
-</body>
+    <div>
+        <form action="chat" method="post">
+            <input type="text" name="text" placeholder="message"/>
+            <button type="submit">post</button>
+        </form>
+    </div>
+    <div>Messages list</div>
+    {{#messages}}
+        <div>
+            <span>{{text}}</span>
+        </div>
+    {{/messages}}
+    </body>
 </html>
