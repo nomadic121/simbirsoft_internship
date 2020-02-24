@@ -1,12 +1,12 @@
-package org.nomadic121.chat.repositories;
+package org.nomadic121.chat.repository;
 
-import org.nomadic121.chat.models.User;
+import org.nomadic121.chat.entity.User;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component
 public class UsersRepositoryImpl implements UsersRepository {
@@ -20,7 +20,7 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Override
     public List<User> getAllUsers() {
-        return users.stream().collect(Collectors.toList());
+        return new ArrayList<>(users);
     }
 
 }

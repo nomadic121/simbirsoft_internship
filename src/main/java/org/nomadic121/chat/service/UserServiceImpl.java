@@ -1,12 +1,14 @@
-package org.nomadic121.chat.services;
+package org.nomadic121.chat.service;
 
-import org.nomadic121.chat.models.User;
-import org.nomadic121.chat.repositories.UsersRepository;
-import org.nomadic121.chat.transfer.UserDto;
+import org.nomadic121.chat.mapper.UserMapper;
+import org.nomadic121.chat.entity.User;
+import org.nomadic121.chat.repository.UsersRepository;
+import org.nomadic121.chat.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class UserServiceImpl implements UserService {
@@ -21,7 +23,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> getAllUsers() {
-        return UserDto.from(userRepo.getAllUsers());
+        return userRepo.getAllUsers().stream()
+                .map(UserMapper.INSTANCE::userToUserDto)
+                .collect(Collectors.toList());
     }
 
 }

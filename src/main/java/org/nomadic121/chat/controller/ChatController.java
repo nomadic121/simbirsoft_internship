@@ -1,9 +1,8 @@
-package org.nomadic121.chat.controllers;
+package org.nomadic121.chat.controller;
 
-import org.nomadic121.chat.models.Message;
-import org.nomadic121.chat.services.MessageService;
-import org.nomadic121.chat.services.UserService;
-import org.nomadic121.chat.transfer.MessageDto;
+import org.nomadic121.chat.service.MessageService;
+import org.nomadic121.chat.service.UserService;
+import org.nomadic121.chat.dto.MessageDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,14 +21,14 @@ public class ChatController {
     private MessageService messageService;
 
     @GetMapping("/chat")
-    public String getChat(@RequestParam(name="name", required=false, defaultValue="") String name, Map<String, Object> model) {
+    public String getChat(@RequestParam(name = "name", required = false, defaultValue = "") String name, Map<String, Object> model) {
         userService.add(name);
         model.put("message", messageService.getAllMessages());
         return "chat";
     }
 
     @PostMapping("/chat")
-    public String postChat(@RequestParam(name="text", required=false, defaultValue="") String text, Map<String, Object> model) {
+    public String postChat(@RequestParam(name = "text", required = false, defaultValue = "") String text, Map<String, Object> model) {
         messageService.add(text);
         Iterable<MessageDto> messages = messageService.getAllMessages();
         model.put("messages", messages);

@@ -1,12 +1,12 @@
-package org.nomadic121.chat.models;
+package org.nomadic121.chat.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class User {
+public class Message {
 
-    private String name;
+    private String text;
 
 }
