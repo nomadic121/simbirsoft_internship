@@ -17,8 +17,8 @@ public class MessageServiceImpl implements MessageService {
     private MessagesRepository messagesRepo;
 
     @Override
-    public void add(final String message) {
-        messagesRepo.add(new Message(message));
+    public void add(final Message message) {
+        messagesRepo.add(message);
     }
 
     @Override

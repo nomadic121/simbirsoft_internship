@@ -17,8 +17,8 @@ public class UserServiceImpl implements UserService {
     private UsersRepository userRepo;
 
     @Override
-    public void add(final String name) {
-        userRepo.add(new User(name));
+    public void add(final User user) {
+        userRepo.add(user);
     }
 
     @Override

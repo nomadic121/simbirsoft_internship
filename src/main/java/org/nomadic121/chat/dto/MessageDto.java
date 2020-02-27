@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MessageDto {
 
-    private String text;
+    private String from;
+
+    private String message;
 
 }
