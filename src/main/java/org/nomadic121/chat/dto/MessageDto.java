@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MessageDto {
 
-    private String from;
+    private String author;
 
-    private String message;
+    private String text;
 
 }

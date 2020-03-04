@@ -1,12 +1,28 @@
 package org.nomadic121.chat.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
+
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
+@RequiredArgsConstructor
+@Builder
+@Entity
+@Table( name = "chat_users")
 public class User {
 
-    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private @NonNull String name;
+
+    private @NonNull String hashPass;
+
+    @OneToMany(mappedBy = "creator")
+    private List<Chat> createdChats;
 
 }

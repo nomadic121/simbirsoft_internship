@@ -9,19 +9,22 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table( name = "Message")
+@Table(name = "chat_messages")
 public class Message {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //    @ManyToOne
-    //    @JoinColumn(name = "creator_id")
-    @Column(name = "owner")
-    private String from;
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private User author;
+
+    @ManyToOne
+    @JoinColumn(name = "chat_id")
+    private Chat chat;
 
     @Column(name = "text")
-    private String message;
+    private String text;
 
 }

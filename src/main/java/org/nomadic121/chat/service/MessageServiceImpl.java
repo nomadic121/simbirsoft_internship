@@ -15,16 +15,16 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MessageServiceImpl implements MessageService {
 
-    private final @NonNull MessagesRepository messagesRepo;
+    private final @NonNull MessagesRepository messagesRepository;
 
     @Override
     public void save(final Message message) {
-        messagesRepo.save(message);
+        messagesRepository.save(message);
     }
 
     @Override
     public List<MessageDto> getAllMessages() {
-        return messagesRepo.findAll().stream()
+        return messagesRepository.findAll().stream()
                 .map(MessageMapper.INSTANCE::messageToMessageDto)
                 .collect(Collectors.toList());
     }
