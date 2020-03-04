@@ -11,6 +11,8 @@ public class MessageDto {
 
     private String author;
 
+    private String chat;
+
     private String text;
 
 }

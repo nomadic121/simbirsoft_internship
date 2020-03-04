@@ -7,7 +7,6 @@ import org.nomadic121.chat.entity.User;
 import org.nomadic121.chat.form.MessageForm;
 import org.nomadic121.chat.repository.UsersRepository;
 import org.nomadic121.chat.service.MessageService;
-import org.nomadic121.chat.service.UserService;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;

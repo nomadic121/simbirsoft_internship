@@ -12,6 +12,7 @@ public interface MessageMapper {
     MessageMapper INSTANCE = Mappers.getMapper(MessageMapper.class);
 
     @Mapping(source = "author.name", target = "author")
+    @Mapping(source = "chat.title", target = "chat")
     MessageDto messageToMessageDto(Message message);
 
 }
