@@ -1,4 +1,4 @@
-package org.nomadic121.chat.controller;
+package org.nomadic121.chat.controller.REST;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 @RequiredArgsConstructor
-public class ChatsRESTController {
+public class ChatController {
 
     private final @NonNull ChatService chatService;
 

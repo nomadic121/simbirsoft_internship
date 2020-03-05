@@ -1,4 +1,4 @@
-package org.nomadic121.chat.controller;
+package org.nomadic121.chat.controller.View;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

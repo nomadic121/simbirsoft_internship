@@ -1,4 +1,4 @@
-package org.nomadic121.chat.controller;
+package org.nomadic121.chat.controller.REST;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-public class UsersRESTController {
+public class UserController {
 
     private final @NonNull UserService userService;
 
