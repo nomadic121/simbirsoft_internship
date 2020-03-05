@@ -19,10 +19,11 @@ public class UserServiceImpl implements UserService {
     private final @NonNull UsersRepository usersRepository;
 
     @Override
-    public void add(final UserForm userForm) {
+    public void save(final UserForm userForm) {
         usersRepository.save(User.builder()
                 .name(userForm.getName())
                 .hashPass(userForm.getHashPass())
+                .banned(false)
                 .build());
     }
 
@@ -32,5 +33,13 @@ public class UserServiceImpl implements UserService {
                 .map(UserMapper.INSTANCE::userToUserDto)
                 .collect(Collectors.toList());
     }
+
+//    public boolean isBanned (final User user) {
+//        return usersRepository.findById(user.getId()).get().getBanned();
+//    }
+//
+//    public void ban (final User user) {
+//        banned = true;
+//    }
 
 }

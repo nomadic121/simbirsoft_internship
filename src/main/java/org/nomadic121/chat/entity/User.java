@@ -11,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Builder
 @Entity
-@Table( name = "chat_users")
+@Table(name = "chat_users")
 public class User {
 
     @Id
@@ -21,6 +21,8 @@ public class User {
     private @NonNull String name;
 
     private @NonNull String hashPass;
+
+    private boolean banned;
 
     @OneToMany(mappedBy = "creator")
     private List<Chat> createdChats;
