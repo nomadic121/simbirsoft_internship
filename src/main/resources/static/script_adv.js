@@ -1,6 +1,6 @@
-const CHATID = "2";
 
 function connect() {
+    var CHATID = document.getElementById('chatId').innerHTML;;
 	var socket = new SockJS('/chat-messaging');
 	stompClient = Stomp.over(socket);
 	stompClient.connect({}, function(frame) {
@@ -27,5 +27,6 @@ function disconnect(){
 	stompClient.disconnect();
 }
 function sendMessage(){
+    var CHATID = document.getElementById('chatId').innerHTML;;
 	stompClient.send("/app/message/" + CHATID, {}, JSON.stringify({'message': $("#message_input_value").val()}));
 }

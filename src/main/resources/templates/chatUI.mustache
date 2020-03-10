@@ -8,7 +8,6 @@
     <script src="/webjars/jquery/jquery.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-    <script src="/script_adv.js"></script>
 </head>
 <body>
 <h1>Simple chat</h1>
@@ -19,16 +18,7 @@
             <div class="button minimize"></div>
             <div class="button maximize"></div>
         </div>
-        <div id="chatId" class="title">
-            {{chatId}}
-<!--            {{#chat}}-->
-<!--                <div>-->
-<!--                    <b>{{id}}</b>-->
-<!--                    <span>{{title}}</span>-->
-<!--                    <i>{{creator}}</i>-->
-<!--                </div>-->
-<!--            {{/chat}}-->
-        </div>
+        <div id="chatId" class="title">{{chatId}}</div>
     </div>
     <ul class="messages"></ul>
     <div class="bottom_wrapper clearfix">
@@ -49,5 +39,6 @@
         </div>
     </li>
 </div>
+<script src="/script_adv.js"></script>
 </body>
 </html>
