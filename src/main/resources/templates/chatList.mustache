@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+<div>
+    <form action="/chatUI" method="get">
+        <input type="text" name="chatId" placeholder="Type chatId"/>
+        <button type="submit">get chat</button>
+    </form>
+</div>
+
+<div> Chat list </div>
+{{#chat}}
+    <div>
+        <b>{{id}}</b>
+        <span>{{title}}</span>
+        <i>{{creator}}</i>
+    </div>
+{{/chat}}
+
+
+<div> Create chat </div>
+<div>
+    <form action="/chatList" method="post">
+        <input type="text" name="title" placeholder="Type new chat title"/>
+        <button type="submit">create chat</button>
+    </form>
+</div>
+
+</body>
+</html>
