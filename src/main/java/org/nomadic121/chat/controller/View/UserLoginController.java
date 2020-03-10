@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.nomadic121.chat.form.UserForm;
 import org.nomadic121.chat.service.UserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,10 +16,15 @@ public class UserLoginController {
 
     private final @NonNull UserService userService;
 
-//    @GetMapping("/sign_in")
-//    public String signInPage() {
-//        return "sign_in";
-//    }
+    @GetMapping("/login")
+    public String signInPage(@RequestParam(value = "error", required = false) String error, ModelMap model) {
+        if (error != null) {
+            model.addAttribute("error", "name or password not correct");
+        } else {
+            model.addAttribute("error", "");
+        }
+        return "login";
+    }
 
     @GetMapping("/sign_up")
     public String signUpPage() {

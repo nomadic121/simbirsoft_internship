@@ -19,7 +19,7 @@ public class ChatVController {
     private final @NonNull ChatService chatService;
 
     @GetMapping("/chatUI")
-    public String getChat(@RequestParam(name="chatId", required=false, defaultValue="main") String chatId, Map<String, Object> model) {
+    public String getChat(@RequestParam(name="chatId", required=false, defaultValue="1") String chatId, Map<String, Object> model) {
         model.put("chatId", chatId);
         return "chatUI";
     }
