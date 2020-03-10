@@ -11,6 +11,8 @@ import org.nomadic121.chat.mapper.MessageMapper;
 import org.nomadic121.chat.repository.ChatsRepository;
 import org.nomadic121.chat.repository.MessagesRepository;
 import org.nomadic121.chat.repository.UsersRepository;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import java.security.Principal;
@@ -27,6 +29,8 @@ public class MessageServiceImpl implements MessageService {
 
     private final @NonNull UsersRepository usersRepository;
 
+    private final @NonNull SimpMessagingTemplate simpMessagingTemplate;
+
     @Override
     public List<MessageDto> getAllMessages() {
         return messagesRepository.findAll().stream()
@@ -36,8 +40,14 @@ public class MessageServiceImpl implements MessageService {
 
     @Override
     public void save(final Principal principal, final Long chatId, final MessageForm messageForm) {
-        Chat chat = chatsRepository.findById(chatId).get();
+        Chat chat = chatsRepository.findById(chatId).orElseThrow(() -> new EmptyResultDataAccessException("Chat not found", 1));
         save(principal, chat, messageForm);
+    }
+
+    @Override
+    public void saveAndDeliverMessage(final Principal principal, final Long chatId, final MessageForm messageForm) {
+        save(principal, chatId, messageForm);
+        simpMessagingTemplate.convertAndSend("/chat/messages/" + chatId, messageForm);
     }
 
     @Override

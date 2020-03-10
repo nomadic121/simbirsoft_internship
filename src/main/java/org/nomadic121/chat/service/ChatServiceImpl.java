@@ -2,7 +2,6 @@ package org.nomadic121.chat.service;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.nomadic121.chat.dto.ChatDto;
 import org.nomadic121.chat.entity.Chat;
 import org.nomadic121.chat.entity.User;
@@ -10,6 +9,7 @@ import org.nomadic121.chat.form.ChatForm;
 import org.nomadic121.chat.mapper.ChatMapper;
 import org.nomadic121.chat.repository.ChatsRepository;
 import org.nomadic121.chat.repository.UsersRepository;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import java.security.Principal;

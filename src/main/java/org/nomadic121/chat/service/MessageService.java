@@ -13,6 +13,8 @@ public interface MessageService {
 
     void save(Principal principal, Chat chat, MessageForm messageForm);
 
+    void saveAndDeliverMessage(Principal principal, Long chatId,  MessageForm messageForm);
+
     List<MessageDto> getAllMessages();
 
 }
