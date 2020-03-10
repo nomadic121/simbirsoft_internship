@@ -3,7 +3,6 @@ package org.nomadic121.chat.security.details;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.nomadic121.chat.repository.UsersRepository;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,7 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(final String name) throws UsernameNotFoundException {
         return new UserDetailsImpl(usersRepository.findOneByName(name).orElseThrow(() ->
-                new BadCredentialsException("User not found")));
+                new UsernameNotFoundException("User not found")));
     }
 
 }

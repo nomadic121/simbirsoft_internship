@@ -3,6 +3,7 @@ package org.nomadic121.chat.service;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.nomadic121.chat.dto.UserDto;
+import org.nomadic121.chat.entity.Role;
 import org.nomadic121.chat.entity.User;
 import org.nomadic121.chat.form.UserForm;
 import org.nomadic121.chat.mapper.UserMapper;
@@ -27,6 +28,7 @@ public class UserServiceImpl implements UserService {
                 .name(userForm.getName())
                 .hashPass(passwordEncoder.encode(userForm.getHashPass()))
                 .banned(false)
+                .roles(Role.USER)
                 .build());
     }
 

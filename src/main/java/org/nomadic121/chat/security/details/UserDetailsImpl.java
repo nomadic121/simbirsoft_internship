@@ -1,11 +1,13 @@
 package org.nomadic121.chat.security.details;
 
-import lombok.NonNull;
+import org.nomadic121.chat.entity.Role;
 import org.nomadic121.chat.entity.User;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 
 public class UserDetailsImpl implements UserDetails {
 
@@ -15,10 +17,13 @@ public class UserDetailsImpl implements UserDetails {
 
     private String hashPass;
 
+    private Role roles;
+
     public UserDetailsImpl(User user) {
         this.id = user.getId();
         this.name = user.getName();
         this.hashPass = user.getHashPass();
+        this.roles = user.getRoles();
     }
 
     public Long getId() {
@@ -33,9 +38,13 @@ public class UserDetailsImpl implements UserDetails {
         return hashPass;
     }
 
+    public Role getRoles() {
+        return roles;
+    }
+
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+    public String getUsername() {
+        return this.name;
     }
 
     @Override
@@ -44,8 +53,9 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     @Override
-    public String getUsername() {
-        return this.name;
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return Collections.singleton(new SimpleGrantedAuthority(
+                this.roles.toString()));
     }
 
     @Override
