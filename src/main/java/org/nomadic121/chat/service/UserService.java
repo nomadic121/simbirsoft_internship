@@ -12,4 +12,11 @@ public interface UserService {
     List<UserDto> getAllUsers();
 
     UserDto getOneById(Long id);
+
+    boolean isBanned(Long id);
+
+    void ban(Long id);
+
+    void unBan(Long id);
+
 }
