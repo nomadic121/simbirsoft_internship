@@ -12,4 +12,5 @@ public interface ChatService {
 
     List<ChatDto> getAllChats();
 
+    ChatDto getOneById(Long id);
 }

@@ -12,4 +12,8 @@ public interface MessageService {
 
     List<MessageDto> getAllMessages();
 
+    List<MessageDto> getMessagesByChatId(Long id);
+
+    MessageDto getOneById(Long id);
+
 }

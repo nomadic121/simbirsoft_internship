@@ -35,4 +35,10 @@ public class ChatServiceImpl implements ChatService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public ChatDto getOneById(final Long id) {
+        Chat chat = chatsRepository.getOne(id);
+        return ChatMapper.INSTANCE.chatToChatDto(chat);
+    }
+
 }

@@ -8,6 +8,7 @@ import org.nomadic121.chat.entity.Message;
 import org.nomadic121.chat.entity.User;
 import org.nomadic121.chat.form.MessageForm;
 import org.nomadic121.chat.mapper.MessageMapper;
+import org.nomadic121.chat.mapper.UserMapper;
 import org.nomadic121.chat.repository.ChatsRepository;
 import org.nomadic121.chat.repository.MessagesRepository;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -28,13 +29,6 @@ public class MessageServiceImpl implements MessageService {
     private final @NonNull SimpMessagingTemplate simpMessagingTemplate;
 
     @Override
-    public List<MessageDto> getAllMessages() {
-        return messagesRepository.findAll().stream()
-                .map(MessageMapper.INSTANCE::messageToMessageDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public void saveAndDeliverMessage(final User user, final Long chatId, final MessageForm messageForm) {
         save(user, chatId, messageForm);
         simpMessagingTemplate.convertAndSend("/chat/messages/" + chatId, messageForm);
@@ -50,4 +44,24 @@ public class MessageServiceImpl implements MessageService {
         messagesRepository.save(msg);
     }
 
+    @Override
+    public List<MessageDto> getAllMessages() {
+        return messagesRepository.findAll().stream()
+                .map(MessageMapper.INSTANCE::messageToMessageDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MessageDto> getMessagesByChatId(final Long id) {
+        Chat chat = chatsRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException("Chat not found", 1));
+        return messagesRepository.findAllByChat(chat).stream()
+                .map(MessageMapper.INSTANCE::messageToMessageDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public MessageDto getOneById(final Long id) {
+        Message message = messagesRepository.getOne(id);
+        return MessageMapper.INSTANCE.messageToMessageDto(message);
+    }
 }

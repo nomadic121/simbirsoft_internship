@@ -1,5 +1,6 @@
 package org.nomadic121.chat.service;
 
+import javassist.NotFoundException;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.nomadic121.chat.dto.UserDto;
@@ -41,6 +42,13 @@ public class UserServiceImpl implements UserService {
         return usersRepository.findAll().stream()
                 .map(UserMapper.INSTANCE::userToUserDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public UserDto getOneById(final Long id) {
+        User user = null;
+        user = usersRepository.getOne(id);
+        return UserMapper.INSTANCE.userToUserDto(user);
     }
 
 }
