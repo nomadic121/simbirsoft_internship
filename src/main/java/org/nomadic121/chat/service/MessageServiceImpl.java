@@ -68,6 +68,13 @@ public class MessageServiceImpl implements MessageService {
         messagesRepository.deleteById(id);
     }
 
+    @Override
+    public void updateMessageById(final Authentication authentication, final Long id, final MessageForm messageForm) {
+        Message msg = messagesRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException("Message not found", 1));
+        msg.setText(messageForm.getMessage());
+        messagesRepository.save(msg);
+    }
+
     private void save(final User user, final Long chatId, final MessageForm messageForm) {
         Chat chat = chatsRepository.findById(chatId).orElseThrow(() -> new EmptyResultDataAccessException("Chat not found", 1));
         Message msg = Message.builder()

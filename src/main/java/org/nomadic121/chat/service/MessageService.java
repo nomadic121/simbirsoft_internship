@@ -20,4 +20,6 @@ public interface MessageService {
     MessageDto getOneById(Long id);
 
     void deleteMessageById(Authentication authentication, Long id);
+
+    void updateMessageById(Authentication authentication, Long id, MessageForm messageForm);
 }

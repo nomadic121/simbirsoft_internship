@@ -80,4 +80,20 @@ public class MessageController {
         return ResponseEntity.badRequest().build();
     }
 
+    @PutMapping("/messages/{messageId}")
+    public ResponseEntity<Void> updateMessageById(@PathVariable(name = "messageId", required = true) String messageId,
+                                                  Authentication authentication,
+                                                  @RequestBody MessageForm messageForm) {
+        if (!messageId.isEmpty()) {
+            Long id = Long.valueOf(messageId);
+            try {
+                messageService.updateMessageById(authentication, id, messageForm);
+                return ResponseEntity.ok().build();
+            } catch (EntityNotFoundException e) {
+                return ResponseEntity.badRequest().build();
+            }
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
 }
