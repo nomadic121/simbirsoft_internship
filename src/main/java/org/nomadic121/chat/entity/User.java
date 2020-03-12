@@ -29,6 +29,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Set<Role> authorities;
 
+    private Role role;
+
     private boolean banned;
 
     @OneToMany(mappedBy = "creator")
