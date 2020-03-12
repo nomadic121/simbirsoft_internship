@@ -8,7 +8,7 @@ public class IndexController {
 
     @GetMapping("/")
     public String signUpPage() {
-        return "chatList";
+        return "redirect:/chatList";
     }
 
 }

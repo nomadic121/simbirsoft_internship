@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
-public class ChatVController {
+public class ChatUIController {
 
     private final @NonNull ChatService chatService;
 
