@@ -30,9 +30,14 @@ public class SignUpController {
     @PostMapping("/sign_up")
     public String signUp(@RequestParam(name = "username", required = true) String username,
                          @RequestParam(name = "password", required = true) String password,
+                         @RequestParam(name = "role", required = true) String role,
                          ModelMap model) {
         if (!username.isEmpty() && !password.isEmpty()) {
-            UserForm userForm = new UserForm(username, password);
+            UserForm userForm = UserForm.builder()
+                    .name(username)
+                    .hashPass(password)
+                    .role(role)
+                    .build();
             userService.createAndSave(userForm);
             return "redirect:/chatList";
         }
