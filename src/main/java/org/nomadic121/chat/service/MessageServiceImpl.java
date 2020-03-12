@@ -42,16 +42,6 @@ public class MessageServiceImpl implements MessageService {
         simpMessagingTemplate.convertAndSend("/chat/messages/" + chatId, messageForm);
     }
 
-    private void save(final User user, final Long chatId, final MessageForm messageForm) {
-        Chat chat = chatsRepository.findById(chatId).orElseThrow(() -> new EmptyResultDataAccessException("Chat not found", 1));
-        Message msg = Message.builder()
-                .author(user)
-                .chat(chat)
-                .text(messageForm.getMessage())
-                .build();
-        messagesRepository.save(msg);
-    }
-
     @Override
     public List<MessageDto> getAllMessages() {
         return messagesRepository.findAll().stream()
@@ -71,5 +61,20 @@ public class MessageServiceImpl implements MessageService {
     public MessageDto getOneById(final Long id) {
         Message message = messagesRepository.getOne(id);
         return MessageMapper.INSTANCE.messageToMessageDto(message);
+    }
+
+    @Override
+    public void deleteMessageById(final Authentication authentication, final Long id) {
+        messagesRepository.deleteById(id);
+    }
+
+    private void save(final User user, final Long chatId, final MessageForm messageForm) {
+        Chat chat = chatsRepository.findById(chatId).orElseThrow(() -> new EmptyResultDataAccessException("Chat not found", 1));
+        Message msg = Message.builder()
+                .author(user)
+                .chat(chat)
+                .text(messageForm.getMessage())
+                .build();
+        messagesRepository.save(msg);
     }
 }

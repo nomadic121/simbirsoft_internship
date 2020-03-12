@@ -50,13 +50,28 @@ public class MessageController {
     }
 
     @PostMapping("/messages/{chatId}")
-    public ResponseEntity<Void> postMessageChatId(@PathVariable(name = "chatId", required = true) String chatId,
+    public ResponseEntity<Void> postMessageByChatId(@PathVariable(name = "chatId", required = true) String chatId,
                                                   Authentication authentication,
                                                   @RequestBody MessageForm messageForm) {
         if (!chatId.isEmpty()) {
             Long id = Long.valueOf(chatId);
             try {
                 messageService.saveAndDeliverMessage(authentication, id, messageForm);
+                return ResponseEntity.ok().build();
+            } catch (EntityNotFoundException e) {
+                return ResponseEntity.badRequest().build();
+            }
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
+    @DeleteMapping("/messages/{messageId}")
+    public ResponseEntity<Void> deleteMessageById(@PathVariable(name = "messageId", required = true) String messageId,
+                                                  Authentication authentication) {
+        if (!messageId.isEmpty()) {
+            Long id = Long.valueOf(messageId);
+            try {
+                messageService.deleteMessageById(authentication, id);
                 return ResponseEntity.ok().build();
             } catch (EntityNotFoundException e) {
                 return ResponseEntity.badRequest().build();

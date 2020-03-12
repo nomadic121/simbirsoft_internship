@@ -19,4 +19,5 @@ public interface MessageService {
 
     MessageDto getOneById(Long id);
 
+    void deleteMessageById(Authentication authentication, Long id);
 }
