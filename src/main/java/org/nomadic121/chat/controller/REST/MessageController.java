@@ -3,10 +3,11 @@ package org.nomadic121.chat.controller.REST;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.nomadic121.chat.dto.MessageDto;
+import org.nomadic121.chat.form.MessageForm;
 import org.nomadic121.chat.service.MessageService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
@@ -23,7 +24,7 @@ public class MessageController {
     }
 
     @GetMapping("/messages/{chatId}")
-    public List<MessageDto> getMessageByChatId(@PathVariable(name = "chatId", required = true) String chatId) {
+    public List<MessageDto> getMessageListByChatId(@PathVariable(name = "chatId", required = true) String chatId) {
         if (!chatId.isEmpty()) {
             Long id = Long.valueOf(chatId);
             try {
@@ -36,7 +37,7 @@ public class MessageController {
     }
 
     @GetMapping("/message/{messageId}")
-    public MessageDto getMessagesById(@PathVariable(name = "messageId", required = false) String messageId) {
+    public MessageDto getMessagesById(@PathVariable(name = "messageId", required = true) String messageId) {
         if (!messageId.isEmpty()) {
             Long id = Long.valueOf(messageId);
             try {
@@ -46,6 +47,22 @@ public class MessageController {
             }
         }
         return null;
+    }
+
+    @PostMapping("/messages/{chatId}")
+    public ResponseEntity<Void> postMessageChatId(@PathVariable(name = "chatId", required = true) String chatId,
+                                                  Authentication authentication,
+                                                  @RequestBody MessageForm messageForm) {
+        if (!chatId.isEmpty()) {
+            Long id = Long.valueOf(chatId);
+            try {
+                messageService.saveAndDeliverMessage(authentication, id, messageForm);
+                return ResponseEntity.ok().build();
+            } catch (EntityNotFoundException e) {
+                return ResponseEntity.badRequest().build();
+            }
+        }
+        return ResponseEntity.badRequest().build();
     }
 
 }
