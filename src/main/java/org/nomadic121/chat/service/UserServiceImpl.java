@@ -3,6 +3,7 @@ package org.nomadic121.chat.service;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.nomadic121.chat.dto.UserDto;
+import org.nomadic121.chat.entity.Role;
 import org.nomadic121.chat.entity.User;
 import org.nomadic121.chat.form.UserForm;
 import org.nomadic121.chat.mapper.UserMapper;
@@ -28,7 +29,8 @@ public class UserServiceImpl implements UserService {
                 .userName(userForm.getName())
                 .password(passwordEncoder.encode(userForm.getHashPass()))
                 .banned(false)
-                .authorities(RoleAuthoritiesManager.USER.getAuthorities())
+                .role(Role.valueOf(userForm.getRole()))
+                .authorities(RoleAuthoritiesManager.valueOf(userForm.getRole()).getAuthorities())
                 .build());
     }
 
@@ -43,6 +45,21 @@ public class UserServiceImpl implements UserService {
     public UserDto getOneById(final Long id) {
         User user = usersRepository.getOne(id);
         return UserMapper.INSTANCE.userToUserDto(user);
+    }
+
+    @Override
+    public void deleteById(final Long id) {
+        usersRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateById(final Long id, final UserForm userForm) {
+        User user = usersRepository.getOne(id);
+        user.setPassword(userForm.getHashPass());
+        user.setUserName(userForm.getName());
+        user.setRole(Role.valueOf(userForm.getRole()));
+        user.setAuthorities(RoleAuthoritiesManager.valueOf(userForm.getRole()).getAuthorities());
+
     }
 
     @Override

@@ -13,6 +13,10 @@ public interface UserService {
 
     UserDto getOneById(Long id);
 
+    void deleteById(Long id);
+
+    void updateById(Long id, UserForm userForm);
+
     boolean isBanned(Long id);
 
     void ban(Long id);
