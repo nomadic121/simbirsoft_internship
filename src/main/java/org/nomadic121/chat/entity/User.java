@@ -10,7 +10,7 @@ import java.util.Set;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Builder
-@EqualsAndHashCode(exclude = {"banned", "hashPass", "createdChats"})
+@EqualsAndHashCode(exclude = {"banned", "password", "createdChats", "authorities"})
 @Entity
 @Table(name = "chat_users")
 public class User {
@@ -20,17 +20,14 @@ public class User {
     private Long id;
 
     @Column(unique = true)
-    private @NonNull String name;
+    private @NonNull String userName;
 
-    private @NonNull String hashPass;
+    private @NonNull String password;
 
-//    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-//    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
-//    @Enumerated(EnumType.STRING)
-//    private Set<Role> roles;
-
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
-    Role roles;
+    private Set<Role> authorities;
 
     private boolean banned;
 

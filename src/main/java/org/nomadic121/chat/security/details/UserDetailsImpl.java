@@ -7,55 +7,46 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 public class UserDetailsImpl implements UserDetails {
 
     private Long id;
 
-    private String name;
+    private String userName;
 
-    private String hashPass;
+    private String password;
 
-    private Role roles;
+    private Set<SimpleGrantedAuthority> authorities;
 
     public UserDetailsImpl(User user) {
         this.id = user.getId();
-        this.name = user.getName();
-        this.hashPass = user.getHashPass();
-        this.roles = user.getRoles();
+        this.userName = user.getUserName();
+        this.password = user.getPassword();
+        this.authorities = new HashSet<>();
+        for (Role userAuthority : user.getAuthorities()) {
+            this.authorities.add(new SimpleGrantedAuthority(userAuthority.toString()));
+        }
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getHashPass() {
-        return hashPass;
-    }
-
-    public Role getRoles() {
-        return roles;
-    }
-
     @Override
     public String getUsername() {
-        return this.name;
+        return this.userName;
     }
 
     @Override
     public String getPassword() {
-        return this.hashPass;
+        return this.password;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(
-                this.roles.toString()));
+        return this.authorities;
     }
 
     @Override

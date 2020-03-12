@@ -11,7 +11,7 @@ public interface ChatMapper {
 
     ChatMapper INSTANCE = Mappers.getMapper(ChatMapper.class);
 
-    @Mapping(source = "creator.name", target = "creator")
+    @Mapping(source = "creator.userName", target = "creator")
     ChatDto chatToChatDto(Chat chat);
 
 }
