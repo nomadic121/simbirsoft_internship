@@ -11,4 +11,6 @@ public class UserForm {
 
     private String hashPass;
 
+    private String role;
+
 }
