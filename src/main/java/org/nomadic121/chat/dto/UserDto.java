@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserDto {
 
-    private String name;
+    private Long id;
+
+    private String userName;
 
 }

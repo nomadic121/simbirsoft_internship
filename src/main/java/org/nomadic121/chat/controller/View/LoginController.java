@@ -35,7 +35,7 @@ public class UserLoginController {
     public String signUp(@RequestParam(name = "username", required = true) String username,
                          @RequestParam(name = "password", required = true) String password) {
         UserForm userForm = new UserForm(username, password);
-        userService.save(userForm);
+        userService.createAndSave(userForm);
         return "redirect:/chatList";
     }
 
