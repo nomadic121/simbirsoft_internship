@@ -31,7 +31,7 @@ public class User {
 
     private Role role;
 
-    private boolean banned;
+    private Boolean banned;
 
     @OneToMany(mappedBy = "creator")
     private Set<Chat> createdChats;
