@@ -18,7 +18,7 @@ public enum RoleAuthoritiesManager {
 
     private final Set<Role> authorities = new HashSet<>();
 
-    private RoleAuthoritiesManager(Role role) {
+    RoleAuthoritiesManager(Role role) {
         switch (role) {
             case BANNED:
                 authorities.add(Role.ROLE_USER);
@@ -40,6 +40,8 @@ public enum RoleAuthoritiesManager {
                 authorities.add(Role.ROLE_USER);
                 authorities.add(Role.CAN_GET_MESSAGES);
                 authorities.add(Role.CAN_SEND_MESSAGES);
+                break;
+            default:
                 break;
         }
     }
