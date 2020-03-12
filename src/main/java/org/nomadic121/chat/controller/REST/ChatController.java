@@ -23,7 +23,7 @@ public class ChatController {
     }
 
     @GetMapping("/chat/{chatId}")
-    public ChatDto getChatById(@PathVariable(name = "chatId", required = false) String chatId) {
+    public ChatDto getChatById(@PathVariable(name = "chatId", required = true) String chatId) {
         if (!chatId.isEmpty()) {
             Long id = Long.valueOf(chatId);
             try {
