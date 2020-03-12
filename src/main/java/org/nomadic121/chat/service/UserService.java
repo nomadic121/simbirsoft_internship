@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface UserService {
 
-    void save(UserForm userForm);
+    void createAndSave(UserForm userForm);
 
     List<UserDto> getAllUsers();
 

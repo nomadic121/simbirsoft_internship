@@ -11,6 +11,7 @@ import org.nomadic121.chat.repository.UsersRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,12 +24,15 @@ public class UserServiceImpl implements UserService {
     private final @NonNull PasswordEncoder passwordEncoder;
 
     @Override
-    public void save(final UserForm userForm) {
+    public void createAndSave(final UserForm userForm) {
         usersRepository.save(User.builder()
-                .name(userForm.getName())
-                .hashPass(passwordEncoder.encode(userForm.getHashPass()))
+                .userName(userForm.getName())
+                .password(passwordEncoder.encode(userForm.getHashPass()))
                 .banned(false)
-                .roles(Role.USER)
+                .authorities(new HashSet<Role>() {{
+                    add(Role.ROLE_USER);
+                    add(Role.CAN_SEND_MESSAGES);
+                }})
                 .build());
     }
 
