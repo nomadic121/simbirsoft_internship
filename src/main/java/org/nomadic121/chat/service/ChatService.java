@@ -13,4 +13,9 @@ public interface ChatService {
     List<ChatDto> getAllChats();
 
     ChatDto getOneById(Long id);
+
+    void deleteById(Long id);
+
+    void updateById(Long id, ChatForm chatForm);
+
 }

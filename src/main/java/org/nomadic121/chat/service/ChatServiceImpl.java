@@ -41,4 +41,16 @@ public class ChatServiceImpl implements ChatService {
         return ChatMapper.INSTANCE.chatToChatDto(chat);
     }
 
+    @Override
+    public void deleteById(final Long id) {
+        chatsRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateById(final Long id, final ChatForm chatForm) {
+        Chat chat = chatsRepository.getOne(id);
+        chat.setTitle(chatForm.getTitle());
+        chatsRepository.save(chat);
+    }
+
 }
