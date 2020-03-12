@@ -7,9 +7,9 @@ import java.util.Set;
 
 public enum RoleAuthoritiesManager {
 
-    USER(Role.ROLE_USER),
-    ADMINISTRATOR(Role.ROLE_ADMINISTRATOR),
-    MODERATOR(Role.ROLE_MODERATOR),
+    ROLE_USER(Role.ROLE_USER),
+    ROLE_ADMINISTRATOR(Role.ROLE_ADMINISTRATOR),
+    ROLE_MODERATOR(Role.ROLE_MODERATOR),
     BANNED(Role.BANNED);
 
     public Set<Role> getAuthorities() {
