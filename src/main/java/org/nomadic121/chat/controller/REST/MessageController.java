@@ -48,13 +48,11 @@ public class MessageController {
     }
 
     @PreAuthorize(value = "hasAuthority('CAN_SEND_MESSAGES')")
-    @PostMapping("/messages/{chatId}")
-    public ResponseEntity<Void> postMessageByChatId(@PathVariable(name = "chatId", required = true) String chatId,
-                                                    Authentication authentication,
+    @PostMapping("/messages/")
+    public ResponseEntity<Void> postMessageByChatId(Authentication authentication,
                                                     @RequestBody MessageForm messageForm) {
         try {
-            Long id = Long.valueOf(chatId);
-            messageService.saveAndDeliverMessage(authentication, id, messageForm);
+            messageService.saveAndDeliverMessage(authentication, messageForm);
             return ResponseEntity.ok().build();
         } catch (EntityNotFoundException | NumberFormatException e) {
             return ResponseEntity.badRequest().build();

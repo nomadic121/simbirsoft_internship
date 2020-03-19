@@ -16,7 +16,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Component
 @RequiredArgsConstructor
@@ -43,10 +44,27 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    public void saveAndDeliverMessage(final Authentication authentication, final MessageForm messageForm) {
+        User user = authenticationService.getUserByAuthentication(authentication);
+//        List<Long> userDestinationListId = messageForm.getDestination().entrySet().stream()
+//                .filter(x -> x.getKey().equals("user"))
+//                .map(x -> Long.valueOf(x.getValue()))
+//                .collect(toList());
+        List<Long> chatDestinationListId = messageForm.getDestination().entrySet().stream()
+                .filter(x -> x.getKey().equals("chat"))
+                .map(x -> Long.valueOf(x.getValue()))
+                .collect(toList());
+        for (Long id : chatDestinationListId) {
+            saveAndDeliverMessage(user, id, messageForm);
+        }
+
+    }
+
+    @Override
     public List<MessageDto> getAllMessages() {
         return messagesRepository.findAll().stream()
                 .map(MessageMapper.INSTANCE::messageToMessageDto)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     @Override
@@ -54,7 +72,7 @@ public class MessageServiceImpl implements MessageService {
         Chat chat = chatsRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException("Chat not found", 1));
         return messagesRepository.findAllByChat(chat).stream()
                 .map(MessageMapper.INSTANCE::messageToMessageDto)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     @Override

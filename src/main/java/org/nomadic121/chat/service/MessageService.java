@@ -13,6 +13,8 @@ public interface MessageService {
 
     void saveAndDeliverMessage(Authentication authentication, Long chatId, MessageForm messageForm);
 
+    void saveAndDeliverMessage(Authentication authentication, MessageForm messageForm);
+
     List<MessageDto> getAllMessages();
 
     List<MessageDto> getMessagesByChatId(Long id);
@@ -22,4 +24,5 @@ public interface MessageService {
     void deleteMessageById(Authentication authentication, Long id);
 
     void updateMessageById(Authentication authentication, Long id, MessageForm messageForm);
+
 }
